@@ -19,6 +19,7 @@ class CommentsController < ApplicationController
 
   # GET /comments/1/edit
   def edit
+
     respond_to do |format|
       format.html
     end
@@ -47,7 +48,7 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to root_url, notice: "Comment was successfully updated." }
+        format.html { redirect_back fallback_location: root_url, notice: "Comment was successfully updated." }
         format.json { render :show, status: :ok, location: @comment }
       else
         format.html { render :edit, status: :unprocessable_entity }
