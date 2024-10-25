@@ -19,11 +19,22 @@ class CommentsController < ApplicationController
 
   # GET /comments/1/edit
   def edit
-
-    respond_to do |format|
-      format.html
+    @comment = Comment.find(params[:id])
+    @comment.post = Post.find(params[:post_id])
+    if @comment.edit?
+      respond_to do |format|
+        format.html { redirect_back fallback_location: root_path, notice: "Comment was successfully edited." }
+        format.json { render :show, status: :created, location: @comment }
+        format.js do
+          render template: "comments/edit"
+        end
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
     end
   end
+
 
   # POST /comments or /comments.json
   def create
@@ -50,6 +61,10 @@ class CommentsController < ApplicationController
       if @comment.update(comment_params)
         format.html { redirect_back fallback_location: root_url, notice: "Comment was successfully updated." }
         format.json { render :show, status: :ok, location: @comment }
+
+        format.js do
+          render template: "comments/edit" # add the js.erb file
+        end
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
@@ -65,7 +80,7 @@ class CommentsController < ApplicationController
       format.json { head :no_content }
 
       format.js do
-        render template: "comments/destroy"
+        render template: "comments/destroy" # add the js.erb file
       end
     end
   end

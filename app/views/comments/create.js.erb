@@ -1,5 +1,4 @@
-var added_comment = $("<%=
-escape_javascript('comments/comment', comment: @comment) %>");
+var added_comment = $("<%= escape_javascript(render 'comments/comment', comment: @comment) %>");
 
 added_comment.hide();
 
