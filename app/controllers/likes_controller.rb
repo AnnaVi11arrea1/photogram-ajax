@@ -58,7 +58,7 @@ class LikesController < ApplicationController
     respond_to do |format|
       format.html { redirect_back fallback_location: root_url, notice: "Like was successfully destroyed." }
       format.json { head :no_content }
-
+    end
       format.js do
         render template: "likes.html.erb"
     end
