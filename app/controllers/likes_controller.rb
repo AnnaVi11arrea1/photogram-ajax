@@ -17,11 +17,16 @@ class LikesController < ApplicationController
 
   # GET /likes/1/edit
   def edit
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # POST /likes or /likes.json
   def create
     @like = Like.new(like_params)
+    @like.fan = current_user
 
     respond_to do |format|
       if @like.save
@@ -53,6 +58,9 @@ class LikesController < ApplicationController
     respond_to do |format|
       format.html { redirect_back fallback_location: root_url, notice: "Like was successfully destroyed." }
       format.json { head :no_content }
+
+      format.js do
+        render template: "likes.html.erb"
     end
   end
 
