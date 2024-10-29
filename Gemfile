@@ -3,6 +3,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.2.1"
 
+gem "pundit"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.2"
 
@@ -98,6 +99,7 @@ group :development do
   gem "rails-erd"
   gem "rufo"
   gem "specs_to_readme"
+  gem "pundit"
 end
 
 group :development, :test do
