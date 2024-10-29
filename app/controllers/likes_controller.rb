@@ -32,6 +32,9 @@ class LikesController < ApplicationController
       if @like.save
         format.html { redirect_back fallback_location: root_url, notice: "Like was successfully created." }
         format.json { render :show, status: :created, location: @like }
+        format.js do
+          render template: "likes/create"
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @like.errors, status: :unprocessable_entity }
@@ -60,7 +63,7 @@ class LikesController < ApplicationController
       format.json { head :no_content }
     
       format.js do
-        render template: "likes.html.erb"
+        render template: "likes/destroy"
       end
     end
   end
